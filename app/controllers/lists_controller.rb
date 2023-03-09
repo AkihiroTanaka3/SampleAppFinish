@@ -11,6 +11,12 @@ class ListsController < ApplicationController
       render :new
     end
   end
+  def create
+    list = List.new(list_params)
+    list.save
+    flash[:notice] = "投稿が成功しました"
+    redirect_to list_path(list.id)
+  end
 
   def index
     @lists = List.all
@@ -30,9 +36,9 @@ class ListsController < ApplicationController
     redirect_to list_path(list.id)
   end
   
-  def destrouy
+  def destroy
     list = List.find(params[:id])
-    list.destrouy
+    list.destroy
     redirect_to '/lists'
   end 
   private
